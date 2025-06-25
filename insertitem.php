@@ -26,15 +26,17 @@
             $sql = "insert into item values(?, ?, ?, ?, ?, ?, ?)";
             $stmt = $conn->prepare($sql);
             $status = $stmt->execute([null, $itemName, $price, $description, $quantity, $filePath, $categorie]);
+            $lastId = $conn->lastInsertId();
+
             if ($status) {
-                $_SESSION['insertSuccess'] = "Item has been inserted successfully";
+                $_SESSION['insertSuccess'] = "Item with Id $lastId has been inserted successfully";
                 header("Location:viewItem.php");
         }
     }
 
-        echo $itemName;
-        echo "<br>".$price;
-        echo "$fileName";
+        // echo $itemName;
+        // echo "<br>".$price;
+        // echo "$fileName";
     }
 
     // foreach($categories as $category) {
@@ -56,8 +58,13 @@
     <body class="bg-light">
         <div class="container-fluid">
             <div class="row">
+                <?php 
+                    require_once"navbar.php"; 
+                ?>
+            </div>
+            <div class="row">
                 <div class="col-md-3">Column 3</div>
-                <div class="col-md-9">
+                <div class="col-md-9 mx-auto">
                     <form class="form mt-2 pt-2" enctype="multipart/form-data" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
                         <fieldset>
                             <legend>Insert Item</legend>

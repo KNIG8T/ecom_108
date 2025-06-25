@@ -32,14 +32,22 @@
     </div>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-2">
-
-            </div>
-            <div class="col-md-10">
+            
+            <div class="col-md-10 mx-auto py-5">
                 <?php 
                     if(isset($_SESSION['insertSuccess'])) {
                         echo "<p class='alert alert-success'> $_SESSION[insertSuccess] </p>";
                         unset($_SESSION["insertSuccess"]);
+                    }
+
+                    elseif(isset($_SESSION['updateSuccess'])) {
+                        echo "<p class='alert alert-success'> $_SESSION[updateSuccess] </p>";
+                        unset($_SESSION["updateSuccess"]);
+                    }
+
+                    elseif(isset($_SESSION['deleteSuccess'])) {
+                        echo "<p class='alert alert-success'> $_SESSION[deleteSuccess] </p>";
+                        unset($_SESSION["deleteSuccess"]);
                     }
                 ?>
                 <table class="table table-striped">
@@ -65,6 +73,8 @@
                                 <td> $item[category] </td>
                                 <td> $item[quantity] </td>
                                 <td> <img src=$item[img_path] style = width:80px; height:80px> </td>
+                                <td> <a class= 'btn btn-primary rounded-pill' href=editItem.php?eid=$item[item_id]>Edit</a> </td>
+                                <td> <a class= 'btn btn-danger rounded-pill' href=editItem.php?did=$item[item_id]> Delete </td>
                                 </tr>";
                             }
                             }
